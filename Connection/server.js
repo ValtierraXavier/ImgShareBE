@@ -6,7 +6,6 @@ import chalk from 'chalk'
 
 const app = express()
 const port = 3020
-
 app.use(express.json())
 app.use(cors())
 app.use('/', routes)

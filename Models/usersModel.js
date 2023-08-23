@@ -3,14 +3,15 @@ import mongoose from 'mongoose'
 
 export const userSchema = new mongoose.Schema(
     {
-        name: String,
+        email: String,
         userName: String,
         userSince: Date,
         posts: [ObjectId],
+        postLikes: [ObjectId],
         comments: [ObjectId],        
         commentLikes: [ObjectId],
-        postLikes: [ObjectId],
         following: [ObjectId],
+        encPassword: String
     }
 )
 
