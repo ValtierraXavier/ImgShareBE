@@ -1,4 +1,6 @@
 import Comments from '../Models/commentsModel.js'
+import Users from '../Models/usersModel.js'
+import Posts from '../Models/postsModel.js'
 
 export const getComments = async (req, res)=>{
     try{
@@ -21,13 +23,14 @@ export const getComment = async (req, res)=>{
 
 export const postComment = async (req, res)=>{
     try{
-        const newComment =  new Comments(req.body)
-        await Comments.save(newComment)
-        await res.send(`Added:\b\b${newComment}`)
+        const body = req.body
+        const newComment =  new Comments(body)
+        await newComment.save()
+        res.send(newComment._id)
     }catch(error){console.log(error)}
 }
 
-export const putComment = async(req, res)=>{
+export const updateComment = async(req, res)=>{
     try{
         const {id} = req.params
         const {body} = req.body

@@ -1,0 +1,38 @@
+[
+    {
+        "email": "scvalt@gmail.com",
+        "name": "Xavier",
+        "userName": "scvalt",
+        "userSince":"08/25/2023 1:40PM",
+        "posts": [],
+        "postLikes": [],
+        "comments": [],
+        "commentLikes": [],
+        "following": [],
+        "encPassword": "$2b$11$m1792VE1DuH6.ZcA6ykMaesfDy/l2z2COgw0N9PW34GD3duSXGYT."
+    },
+    {
+        "email": "joscelynmaldonado@gmail.com",
+        "name": "Joscelyn",
+        "userName": "jmaldonado",
+        "userSince":"08/25/2023 1:40PM",
+        "posts": [],
+        "postLikes": [],
+        "comments": [],
+        "commentLikes": [],
+        "following": [],
+        "encPassword": "$2b$11$3DhbzkLLUzkK0PLc3b3b4O3q4r3wXSg17fFSmOa61ACOcqzO7AlRK"
+    },
+    {
+        "email": "xavier.v@something.com",
+        "name": "Xavier2",
+        "userName": "bottleOfWater",
+        "userSince":"08/25/2023 1:40PM",
+        "posts": [],
+        "postLikes": [],
+        "comments": [],
+        "commentLikes": [],
+        "following": [],
+        "encPassword": "$2b$11$eBauLzSX/7G7AuIfZdbzA.QKE.du/qFQr0TXDC7XBjrhJYWneaXXS"
+    }
+]

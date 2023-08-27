@@ -1,15 +1,27 @@
 import { ObjectId } from 'bson'
 import mongoose from 'mongoose'
+// import UsersSchema from './usersModel.js'
 
-export const commentSchema = new mongoose.Schema(
+
+export let commentSchema = new mongoose.Schema(
     {
-        commentAuthor: ObjectId,
-        commentText: String,
-        whatPost: ObjectId,
-        likes: [ObjectId],
+        commentAuthor: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        commentText: {
+            type: String,
+            require: true
+        },
+        whatPost: mongoose.Schema.Types.ObjectId,
+        likes: Array
+        // {
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     ref : LikesSchema
+        // }
     }
 )
 
-const Comments = mongoose.model('Comments', commentSchema)
+let CommentsSchema = mongoose.model('Comments', commentSchema)
 
-export default Comments
+export default CommentsSchema

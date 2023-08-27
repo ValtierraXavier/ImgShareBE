@@ -22,7 +22,7 @@ export const getPost = async (req, res)=>{
 export const postPost = async (req, res)=>{
     try{
         const newPost =  new Posts(req.body)
-        await Posts.save(newPost)
+        await newPost.save()
         await res.send(`Added:\b\b${newPost}`)
     }catch(error){console.log(error)}
 }
@@ -30,7 +30,7 @@ export const postPost = async (req, res)=>{
 export const putPost = async(req, res)=>{
     try{
         const {id} = req.params
-        const {body} = req.body
+        const body = req.body
         const originalPost = await Posts.findById(id)
         const postEdit = await Posts.findByIdAndUpdate(id, body)
         await postEdit.save()

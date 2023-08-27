@@ -6,7 +6,7 @@ const router = Router()
 router.get('/get',controller.getComments)
 router.get('/get/:id', controller.getComment)
 router.post('/post', controller.postComment)
-router.put('/put/:id', controller.putComment)
+router.put('/update/:id', controller.updateComment)
 router.delete('/delete/:id', controller.deleteComment)
 
 export default router

@@ -1,0 +1,26 @@
+[
+    {   
+        "commentAuthor": [],
+        "commentText": "This is a comment",
+        "whatPost": [],
+        "likes": []
+    },
+    {   
+        "commentAuthor": [],
+        "commentText": "This is a comment 2",
+        "whatPost": [],
+        "likes": []
+    },
+    {   
+        "commentAuthor": [],
+        "commentText": "This is comment 3",
+        "whatPost": [],
+        "likes": []
+    },
+    {   
+        "commentAuthor": [],
+        "commentText": "This is not comment 3; its comment 4",
+        "whatPost": [],
+        "likes": []
+    }
+]

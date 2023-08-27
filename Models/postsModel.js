@@ -1,16 +1,19 @@
-import { ObjectId } from 'bson'
 import mongoose from 'mongoose'
+import UsersSchema from './usersModel.js'
 
-export const postSchema = new mongoose.Schema(
+export let postSchema = new mongoose.Schema(
     {
-        poster: ObjectId,
+        poster: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
         title: String,
         caption: String,
         url: String,
-        likes: [ObjectId]
+        likes: [mongoose.Schema.Types.ObjectId]
     }
 )
 
-const Post = new mongoose.model('Post', postSchema)
+let PostsSchema = mongoose.model('Post', postSchema)
 
-export default Post
+export default PostsSchema

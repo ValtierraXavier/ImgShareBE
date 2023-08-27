@@ -14,12 +14,12 @@ const today = new Date()
 const exp = new Date(today)
 exp.setDate(today.getDate() + 30)
 
-// export const getUsers = async (req, res)=>{
-//     try{
-//         const users = await Users.find({})
-//         await res.json(users)
-//     }catch(error){console.log(error)}
-// }
+export const getUsers = async (req, res)=>{
+    try{
+        const users = await Users.find({})
+        await res.json(users)
+    }catch(error){console.log(error)}
+}
 
 export const getUser = async (req, res)=>{
     try{
@@ -47,9 +47,21 @@ export const updateUser = async(req, res)=>{
         const {body} = req.body
         const originalUser = await Users.findById(id)
         const userEdit = await Users.findByIdAndUpdate(id, body)
-        await userEdit.save()
+        // await userEdit.comments.save()
         await res.send(`${originalUser}\b\b was changed to\b\b ${userEdit}`)
     }catch(error){console.log(error)}
+}
+
+export const insertComment = async (req,res)=>{
+  try{
+    const id = req.params.id
+    const body = req.body.newCommentId
+    const whichUser = await Users.findById(id)
+    whichUser.comments.push(body)
+    whichUser.save()
+    const EditedUser = await Users.findById(id).populate({path:"comments",strictPopulate: false})
+    await res.send(EditedUser)
+}catch(error){console.log(error.message)}
 }
 
 export const deleteUser = async (req, res)=>{
@@ -85,7 +97,7 @@ export const userSignUp = async (req,res) =>{
           res.status(400).json({ error: error.message })
         }
     
-}
+} 
 
 export const userSignIn = async (req,res) =>{
     try{
@@ -93,7 +105,6 @@ export const userSignIn = async (req,res) =>{
         const user = await Users.findOne({ email: email }).select(
             'userName email encPassword'
           )
-        // const checkPassword = await bcrypt.hash(password, SALT_ROUNDS)
           if (await bcrypt.compare(password, user.encPassword)) {
             const payload = {
               id: user._id,
