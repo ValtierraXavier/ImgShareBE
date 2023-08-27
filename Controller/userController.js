@@ -59,7 +59,7 @@ export const insertComment = async (req,res)=>{
     const whichUser = await Users.findById(id)
     whichUser.comments.push(body)
     whichUser.save()
-    const EditedUser = await Users.findById(id).populate({path:"comments",strictPopulate: false})
+    const EditedUser = await Users.findById(id).populate({path:"comments"})
     await res.send(EditedUser)
 }catch(error){console.log(error.message)}
 }

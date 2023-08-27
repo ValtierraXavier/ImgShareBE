@@ -21,17 +21,17 @@ export const getPost = async (req, res)=>{
 
 export const postPost = async (req, res)=>{
     try{
+        // res.send(req.body)
         const newPost =  new Posts(req.body)
         await newPost.save()
-        await res.send(`Added:\b\b${newPost}`)
-    }catch(error){console.log(error)}
+        res.status(200).send("Sucessfully added post.")
+    }catch(error){res.send(error.message)}
 }
 
 export const putPost = async(req, res)=>{
     try{
         const {id} = req.params
         const body = req.body
-        const originalPost = await Posts.findById(id)
         const postEdit = await Posts.findByIdAndUpdate(id, body)
         await postEdit.save()
         await res.send(`${originalPost}\b\b was changed to\b\b ${postEdit}`)
