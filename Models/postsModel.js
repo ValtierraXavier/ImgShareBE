@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
-import UsersSchema from './usersModel.js'
 
-export let postSchema = new mongoose.Schema(
+export const postSchema = new mongoose.Schema(
     {
         poster: {
             type: mongoose.Schema.Types.ObjectId,
@@ -10,10 +9,14 @@ export let postSchema = new mongoose.Schema(
         title: String,
         caption: String,
         url: String,
-        likes: [mongoose.Schema.Types.ObjectId]
+        likes: [mongoose.Schema.Types.ObjectId],
+        postComments:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comments'
+        }]
     }
 )
 
-let PostsSchema = mongoose.model('Post', postSchema)
+const PostsSchema = mongoose.model('Post', postSchema)
 
 export default PostsSchema

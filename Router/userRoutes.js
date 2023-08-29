@@ -11,5 +11,7 @@ router.post('/signin', controller.userSignIn)
 router.put('/put/:id', controller.updateUser)
 router.delete('/delete/:id', controller.deleteUser)
 router.put('/user/:id', controller.insertComment)
+router.put('/linkpost/:id', controller.linkPostToUser)
+router.get('/userposts/:id', controller.getUserPosts)
 
 export default router

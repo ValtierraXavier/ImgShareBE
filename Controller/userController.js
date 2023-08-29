@@ -115,10 +115,33 @@ export const userSignIn = async (req,res) =>{
             const token = jwt.sign(payload, TOKEN_KEY)
             res.status(201).json({ token })
           } else {
-            res.status(401).send('Invalid Credentials')
+            res.status(401).json({message:'Invalid Credentials',
+          status: '401'})
           }
         } catch (error) {
           console.log(error.message)
           res.status(500).json({ error: error.message })
         }
+}
+
+export const linkPostToUser = async (req, res) => {
+  try{
+  const id = req.params.id
+    const postId = req.body.newPostId
+    
+    const user = await Users.findById(id)
+    user.posts.push(postId)
+    user.save()
+    res.send(user)
+  }catch(error){console.log(error.message)
+  }
+}
+
+export const getUserPosts = async (req, res) =>{
+  try{
+    const id = req.params.id
+    const userPosts = await Users.findById(id).populate({path: 'posts'})
+    res.send(userPosts)
+    }catch(error){console.log(error.message)
+    }
 }

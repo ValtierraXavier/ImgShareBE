@@ -8,5 +8,9 @@ router.get('/get/:id', controller.getPost)
 router.post('/post', controller.postPost)
 router.put('/put/:id', controller.putPost)
 router.delete('/delete/:id', controller.deletePost)
+router.put('/comment/put/:id', controller.linkComment)
+router.get('/postwcomments/:id', controller.postWithComments)
+router.get('/userposts/:id', controller.userPosts)
+
 
 export default router

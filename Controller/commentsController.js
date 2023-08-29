@@ -10,7 +10,7 @@ export const getComments = async (req, res)=>{
 }
 
 export const getComment = async (req, res)=>{
-    const {id} = req.params
+    const {id} = req.params.id
     try{
         const comment = await Comments.findById(id)
         if(comment){
