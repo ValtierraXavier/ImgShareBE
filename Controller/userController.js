@@ -64,6 +64,19 @@ export const insertComment = async (req,res)=>{
 }catch(error){console.log(error.message)}
 }
 
+export const unlinkCommentFromUser = async (req, res)=>{
+  const id = req.params.id
+  const body = req.body.commentId
+  const user = await Users.findById(id)
+  const useridIndex = user.comments.indexOf(body)
+  // res.send(user)  
+  if(useridIndex > -1){
+    user.comments.splice(useridIndex, 1)
+    user.save()
+    await res.send({body: body ,user: user})
+  }
+}
+
 export const deleteUser = async (req, res)=>{
     try{
         const {id} = req.params
@@ -138,10 +151,59 @@ export const linkPostToUser = async (req, res) => {
 }
 
 export const getUserPosts = async (req, res) =>{
+  const id = req.params.id
   try{
-    const id = req.params.id
-    const userPosts = await Users.findById(id).populate({path: 'posts'})
-    res.send(userPosts)
+   
+      const userPosts = await Users.findById(id).populate({path: 'posts'})
+      // console.log(userPosts)
+      res.status(200).send(userPosts)    
     }catch(error){console.log(error.message)
     }
 }
+
+export const handlePostLike = async(req, res)=>{
+  const id = req.params.id
+  const body = req.body.post_id
+  // console.log(id, '||', body)
+  try{
+    const user = await Users.findById(id)
+    const index = user.postLikes.indexOf(body)
+    if(index=== -1){      
+      user.postLikes.push(body)
+      await user.save()
+      const newUser = await Users.findById(id)
+      await res.status(200).send(newUser)
+    }else if(index > -1){      
+      user.postLikes.splice(index, 1)
+      await user.save()
+      const newUser = await Users.findById(id)
+      await res.status(200).send(newUser)
+    }
+    
+  }catch(error){error.message}
+}
+
+
+
+export const handleCommentLike = async(req, res)=>{
+  const id = req.params.id
+  const body = req.body.commentId
+  // console.log(id, '||', body)
+  try{
+    const user = await Users.findById(id)
+    const index = user.commentLikes.indexOf(body)
+    if(index === -1){
+      user.commentLikes.push(body)
+      await user.save()
+      const newUser = await Users.findById(id)
+      await res.status(200).send(newUser)
+    }else if(index > -1){
+      user.commentLikes.splice(index, 1)
+      await user.save()
+      const newUser = await Users.findById(id)
+      await res.status(200).send(newUser)}
+    }catch(error){error.message}
+}
+
+
+

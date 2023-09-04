@@ -13,5 +13,8 @@ router.delete('/delete/:id', controller.deleteUser)
 router.put('/user/:id', controller.insertComment)
 router.put('/linkpost/:id', controller.linkPostToUser)
 router.get('/userposts/:id', controller.getUserPosts)
+router.put('/unlinkcomment/:id', controller.unlinkCommentFromUser)
+router.put('/commentlike/:id',controller.handleCommentLike)
+router.put('/postlike/:id',controller.handlePostLike)
 
 export default router

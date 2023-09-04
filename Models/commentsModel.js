@@ -14,11 +14,10 @@ export let commentSchema = new mongoose.Schema(
             require: true
         },
         whatPost: mongoose.Schema.Types.ObjectId,
-        likes: Array
-        // {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref : LikesSchema
-        // }
+        likes:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref : "User"
+        }]
     }
 )
 

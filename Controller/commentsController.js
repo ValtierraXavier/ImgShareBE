@@ -1,6 +1,5 @@
 import Comments from '../Models/commentsModel.js'
-import Users from '../Models/usersModel.js'
-import Posts from '../Models/postsModel.js'
+
 
 export const getComments = async (req, res)=>{
     try{
@@ -32,12 +31,12 @@ export const postComment = async (req, res)=>{
 
 export const updateComment = async(req, res)=>{
     try{
-        const {id} = req.params
-        const {body} = req.body
-        const originalComment = await Comments.findById(id)
+        const id = req.params.id
+        const body = req.body.edited
         const commentEdit = await Comments.findByIdAndUpdate(id, body)
         await commentEdit.save()
-        await res.send(`${originalComment}\b\b was changed to\b\b ${commentEdit}`)
+        const newComment = await Comments.findById(id)
+        res.send(newComment)
     }catch(error){console.log(error)}
 }
 
@@ -48,4 +47,25 @@ export const deleteComment = async (req, res)=>{
         await Comments.findByIdAndDelete(id)
         await res.send(`Deleted:\b\b ${deleteing}`)
     }catch(error){console.log(error)}
+}
+
+export const handleCommentLike = async(req, res)=>{
+    const id = req.params.id
+    const body = req.body.userId
+    // console.log(id, '||', body)
+    try{
+        const comment = await Comments.findById(id)
+        const index = comment.likes.indexOf(body)
+        if(index === -1){
+        comment.likes.push(body)
+        await comment.save()
+        const newComment = await Comments.findById(id)
+        res.status(200).send(newComment)
+    }else if(index > -1){
+        comment.likes.splice(index, 1)
+        await comment.save()
+        const newComment = await Comments.findById(id)
+        res.status(200).send(newComment)
+    }
+    }catch(error){error.message}
 }

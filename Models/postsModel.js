@@ -4,12 +4,25 @@ export const postSchema = new mongoose.Schema(
     {
         poster: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            require: true,
         },
-        title: String,
+        title: {
+            type: String,
+            require: true,
+            minLength: 1,
+            maxLength: 30,
+        },
+
         caption: String,
-        url: String,
-        likes: [mongoose.Schema.Types.ObjectId],
+        url: {
+            type: String,
+            require: true
+        },
+        likes: [{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'User'
+        }],
         postComments:[{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Comments'

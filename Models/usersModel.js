@@ -10,7 +10,7 @@ export let userSchema = new mongoose.Schema(
         },
         name: {
             type: String,
-            select: true
+            select: true,
         },
         userName: {
             type: String,
@@ -23,13 +23,22 @@ export let userSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Post'
         }],
-        postLikes: [mongoose.Schema.Types.ObjectId],
+        postLikes: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'Post'
+        }],
         comments: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Comments"
         }],        
-        commentLikes: [mongoose.Schema.Types.ObjectId],
-        following: [mongoose.Schema.Types.ObjectId],
+        commentLikes: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comments'
+        }],
+        following: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+    }],
         encPassword: {
             type: String,
             required: true,
