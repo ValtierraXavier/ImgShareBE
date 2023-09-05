@@ -22,15 +22,16 @@ export const getUsers = async (req, res)=>{
 }
 
 export const getUser = async (req, res)=>{
-    try{
-        const {id} = req.params
-        const user = await Users.findById(id)
-        if(user){
-            await res.json(user)
-        }else if(!user){
-            await res.send('Record Does Not Exist... =(')
-        }
-    }catch(error){console.log(error)}
+  const id = req.params.id
+  // console.log(id)
+  try{
+      const user = await Users.findById(id)
+      if(user){
+          await res.json(user)
+      }else if(!user){
+          await res.send('Record Does Not Exist... =(')
+      }
+  }catch(error){console.log(error)}
 }
 
 // export const createUser = async (req, res)=>{
@@ -154,7 +155,7 @@ export const getUserPosts = async (req, res) =>{
   const id = req.params.id
   try{
    
-      const userPosts = await Users.findById(id).populate({path: 'posts'})
+      const userPosts = await Users.findById(id).populate({path: 'posts', populate:'poster'})
       // console.log(userPosts)
       res.status(200).send(userPosts)    
     }catch(error){console.log(error.message)

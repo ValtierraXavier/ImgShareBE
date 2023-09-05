@@ -3,7 +3,8 @@ import Posts from '../Models/postsModel.js'
 
 export const getPosts = async (req, res)=>{
     try{
-        const posts = await Posts.find({})
+        const posts = await Posts.find({}).populate({path: 'poster'})
+        // console.log(posts)
         await res.json(posts)
     }catch(error){console.log(error)}
 }
@@ -11,8 +12,10 @@ export const getPosts = async (req, res)=>{
 export const getPost = async (req, res)=>{
     const {id} = req.params
     try{
-        const post = await Posts.findById(id)
+        const post = await Posts.findById(id).populate({path: 'poster'})
         if(post){
+            post.populate({path: 'poster'})
+            // console.log(post)
             await res.json(post)
         }else if(!post){
             await res.send('Record Does Not Exist... =(')
@@ -82,16 +85,17 @@ export const unlinkCommentFromPost = async(req, res)=>{
 export const postWithComments = async(req,res)=>{
     try{
         const id = req.params.id
-        const thePostandComments = await Posts.findById(id).populate([{path: 'postComments',populate:"commentAuthor"}])
+        const thePostandComments = await Posts.findById(id).populate([{path:'poster'},{path: 'postComments',populate:"commentAuthor"}])
+        // console.log(thePostandComments)
         res.json(thePostandComments)
         
      }catch(error){console.log(error.message)}
 }
 
 export const userPosts = async (req, res) =>{
+    const id = req.params.id
     try{
-        const id = req.params.id
-        const posts = await Posts.find({poster: `${id}`})
+        const posts = await Posts.find({poster: `${id}`}).populate({path: 'poster'})
         res.send(posts)
     }catch(error){console.log(error.message)}
 }
