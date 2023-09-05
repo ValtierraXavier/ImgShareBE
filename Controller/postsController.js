@@ -40,12 +40,14 @@ export const postPost = async (req, res)=>{
 }
 
 export const putPost = async(req, res)=>{
+    const id = req.params.id
+    const body = req.body.newPost
+    console.log(id,'||', body)
     try{
-        const {id} = req.params
-        const body = req.body
         const postEdit = await Posts.findByIdAndUpdate(id, body)
         await postEdit.save()
-        await res.send(`${originalPost}\b\b was changed to\b\b ${postEdit}`)
+        const edited = await Posts.findById(id)
+        await res.send(edited)
     }catch(error){console.log(error)}
 }
 
