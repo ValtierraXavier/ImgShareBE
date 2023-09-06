@@ -8,7 +8,7 @@ const connectionConfig = {
 
 mongoose.set('strictQuery', false)
 
-const url = 'mongodb://localhost:27017/imgShareDB'
+const url = 'mongodb://localhost:27017/imgShareDB' || process.env.MONGO_URL
 
 mongoose.connect(url, connectionConfig)
 

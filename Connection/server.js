@@ -5,7 +5,7 @@ import routes from '../Router/index.js'
 import chalk from 'chalk'
 
 const app = express()
-const port = process.env.PORT ||3020
+const port = process.env.PORT || 3020
 app.use(express.json())
 app.use(cors())
 app.use('/', routes)
