@@ -6,7 +6,7 @@ const SALT_ROUNDS = 11
 const TOKEN_KEY = '242013' 
 
 if (process.env.NODE_ENV === 'production') {
-    SALT_ROUNDS = Number(process.env.SALT_ROUNDS)
+    SALT_ROUNDS = process.env.SALT_ROUNDS
     TOKEN_KEY = process.env.TOKEN_KEY
   }
 
