@@ -2,12 +2,13 @@ import Users from '../Models/usersModel.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-const SALT_ROUNDS = 11 
-const TOKEN_KEY = '242013' 
 
 if (process.env.NODE_ENV === 'production') {
-    SALT_ROUNDS = process.env.SALT_ROUNDS
-    TOKEN_KEY = process.env.TOKEN_KEY
+  const SALT_ROUNDS = process.env.SALT_ROUNDS
+  const TOKEN_KEY = process.env.TOKEN_KEY
+}else{
+  const SALT_ROUNDS = 11 
+  const TOKEN_KEY = '242013' 
   }
 
 const today = new Date()
