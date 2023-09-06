@@ -3,13 +3,11 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 
-if (process.env.NODE_ENV === 'production') {
   const SALT_ROUNDS = process.env.SALT_ROUNDS
   const TOKEN_KEY = process.env.TOKEN_KEY
-}else{
-  const SALT_ROUNDS = 11 
-  const TOKEN_KEY = '242013' 
-  }
+  // const SALT_ROUNDS = 11 
+  // const TOKEN_KEY = '242013' 
+  
 
 const today = new Date()
 const exp = new Date(today)
