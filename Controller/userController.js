@@ -2,8 +2,8 @@ import Users from '../Models/usersModel.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-const SALT_ROUNDS = 11
-const TOKEN_KEY = '242013'
+const SALT_ROUNDS = 11 
+const TOKEN_KEY = '242013' 
 
 if (process.env.NODE_ENV === 'production') {
     SALT_ROUNDS = Number(process.env.SALT_ROUNDS)
@@ -23,7 +23,6 @@ export const getUsers = async (req, res)=>{
 
 export const getUser = async (req, res)=>{
   const id = req.params.id
-  // console.log(id)
   try{
       const user = await Users.findById(id)
       if(user){
@@ -34,21 +33,12 @@ export const getUser = async (req, res)=>{
   }catch(error){console.log(error)}
 }
 
-// export const createUser = async (req, res)=>{
-//     try{
-//         const newUser =  new Users(req.body)
-//         await newUser.save()
-//         await res.send(`Added:\b\b${newUser}`)
-//     }catch(error){console.log(error)}
-// }
-
 export const updateUser = async(req, res)=>{
     try{
         const {id} = req.params
         const {body} = req.body
         const originalUser = await Users.findById(id)
         const userEdit = await Users.findByIdAndUpdate(id, body)
-        // await userEdit.comments.save()
         await res.send(`${originalUser}\b\b was changed to\b\b ${userEdit}`)
     }catch(error){console.log(error)}
 }
@@ -70,7 +60,6 @@ export const unlinkCommentFromUser = async (req, res)=>{
   const body = req.body.commentId
   const user = await Users.findById(id)
   const useridIndex = user.comments.indexOf(body)
-  // res.send(user)  
   if(useridIndex > -1){
     user.comments.splice(useridIndex, 1)
     user.save()
@@ -140,7 +129,7 @@ export const userSignIn = async (req,res) =>{
 
 export const linkPostToUser = async (req, res) => {
   try{
-  const id = req.params.id
+    const id = req.params.id
     const postId = req.body.newPostId
     
     const user = await Users.findById(id)
@@ -154,9 +143,7 @@ export const linkPostToUser = async (req, res) => {
 export const getUserPosts = async (req, res) =>{
   const id = req.params.id
   try{
-   
       const userPosts = await Users.findById(id).populate({path: 'posts', populate:'poster'})
-      // console.log(userPosts)
       res.status(200).send(userPosts)    
     }catch(error){console.log(error.message)
     }
@@ -165,7 +152,6 @@ export const getUserPosts = async (req, res) =>{
 export const handlePostLike = async(req, res)=>{
   const id = req.params.id
   const body = req.body.post_id
-  // console.log(id, '||', body)
   try{
     const user = await Users.findById(id)
     const index = user.postLikes.indexOf(body)
@@ -189,7 +175,6 @@ export const handlePostLike = async(req, res)=>{
 export const handleCommentLike = async(req, res)=>{
   const id = req.params.id
   const body = req.body.commentId
-  // console.log(id, '||', body)
   try{
     const user = await Users.findById(id)
     const index = user.commentLikes.indexOf(body)

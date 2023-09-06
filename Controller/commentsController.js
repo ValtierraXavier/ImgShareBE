@@ -52,7 +52,6 @@ export const deleteComment = async (req, res)=>{
 export const handleCommentLike = async(req, res)=>{
     const id = req.params.id
     const body = req.body.userId
-    // console.log(id, '||', body)
     try{
         const comment = await Comments.findById(id)
         const index = comment.likes.indexOf(body)
