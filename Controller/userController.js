@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 
-  const SALT_ROUNDS = process.env.SALT_ROUNDS
   const TOKEN_KEY = process.env.TOKEN_KEY
   // const SALT_ROUNDS = 11 
   // const TOKEN_KEY = '242013' 
@@ -29,7 +28,7 @@ export const getUser = async (req, res)=>{
       }else if(!user){
           await res.send('Record Does Not Exist... =(')
       }
-  }catch(error){console.log(error)}
+  }catch(error){console.log(error.message, 'from userController(getUser)')}
 }
 
 export const updateUser = async(req, res)=>{
@@ -78,7 +77,7 @@ export const deleteUser = async (req, res)=>{
 export const userSignUp = async (req,res) =>{
     try{
         const {email, userName, password} = req.body
-        const encPassword = await bcrypt.hash(password, SALT_ROUNDS)
+        const encPassword =  bcrypt.hash(password, process.env.SALT_ROUNDS)
         const newUser = new Users({
             email,
             userName,
