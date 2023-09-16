@@ -3,8 +3,8 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 
-const SALT_ROUNDS = Number(process.env.SALT_ROUNDS)
-const TOKEN_KEY = process.env.TOKEN_KEY
+let SALT_ROUNDS = Number(process.env.SALT_ROUNDS)
+let TOKEN_KEY = process.env.TOKEN_KEY
 
 if(process.env.NODE_ENV === 'production'){
   SALT_ROUNDS = Number(process.env.SALT_ROUNDS)
