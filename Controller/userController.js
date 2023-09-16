@@ -3,10 +3,13 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 
-  const TOKEN_KEY = process.env.TOKEN_KEY
-  // const SALT_ROUNDS = 11 
-  // const TOKEN_KEY = '242013' 
-  
+const SALT_ROUNDS = Number(process.env.SALT_ROUNDS)
+const TOKEN_KEY = process.env.TOKEN_KEY
+
+if(process.env.NODE_ENV === 'production'){
+  SALT_ROUNDS = Number(process.env.SALT_ROUNDS)
+  TOKEN_KEY = process.env.TOKEN_KEY
+}
 
 const today = new Date()
 const exp = new Date(today)
@@ -75,9 +78,12 @@ export const deleteUser = async (req, res)=>{
 }
 
 export const userSignUp = async (req,res) =>{
+  console.log(process.env.SALT_ROUNDS)
+  console.log(process.env.TOKEN_KEY)
     try{
         const {email, userName, password} = req.body
-        const encPassword =  bcrypt.hash(password, process.env.SALT_ROUNDS)
+        const encPassword = await bcrypt.hash(password, SALT_ROUNDS)
+        console.log(encPassword)
         const newUser = new Users({
             email,
             userName,

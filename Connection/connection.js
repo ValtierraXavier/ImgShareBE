@@ -1,5 +1,8 @@
 import mongoose from 'mongoose'
 import chalk from 'chalk'
+import 'dotenv/config'
+
+
 
 const connectionConfig = {
     useNewUrlParser: true,
