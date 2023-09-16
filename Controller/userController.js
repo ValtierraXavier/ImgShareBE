@@ -107,11 +107,14 @@ export const userSignUp = async (req,res) =>{
 } 
 
 export const userSignIn = async (req,res) =>{
+  const{email, password} = req.body.credentials
+  console.log(req.body)
     try{
-        const{email, password} = req.body
         const user = await Users.findOne({ email: email }).select(
             'userName email encPassword'
           )
+          // console.log(password)
+          // console.log('woah', user.encPassword)
           if (await bcrypt.compare(password, user.encPassword)) {
             const payload = {
               id: user._id,
@@ -122,11 +125,10 @@ export const userSignIn = async (req,res) =>{
             const token = jwt.sign(payload, TOKEN_KEY)
             res.status(201).json({ token })
           } else {
-            res.status(401).json({message:'Invalid Credentials',
-          status: '401'})
+            res.status(401).json({message:'Invalid Credentials'})
           }
         } catch (error) {
-          console.log(error.message)
+          console.log(error)
           res.status(500).json({ error: error.message })
         }
 }
