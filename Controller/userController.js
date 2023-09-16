@@ -105,13 +105,10 @@ export const userSignUp = async (req,res) =>{
 
 export const userSignIn = async (req,res) =>{
   const{email, password} = req.body.credentials
-  console.log(req.body)
     try{
         const user = await Users.findOne({ email: email }).select(
             'userName email encPassword'
           )
-          // console.log(password)
-          // console.log('woah', user.encPassword)
           if (await bcrypt.compare(password, user.encPassword)) {
             const payload = {
               id: user._id,
