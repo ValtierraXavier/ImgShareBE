@@ -78,12 +78,9 @@ export const deleteUser = async (req, res)=>{
 }
 
 export const userSignUp = async (req,res) =>{
-  console.log(process.env.SALT_ROUNDS)
-  console.log(process.env.TOKEN_KEY)
     try{
         const {email, userName, password} = req.body
         const encPassword = await bcrypt.hash(password, SALT_ROUNDS)
-        console.log(encPassword)
         const newUser = new Users({
             email,
             userName,
@@ -136,7 +133,6 @@ export const userSignIn = async (req,res) =>{
 export const linkPostToUser = async (req, res) => {
   const id = req.params.id
   const postId = req.body.newPostId
-  console.log(req.params)
   try{
     const user = await Users.findById(id)
     user.posts.push(postId)
