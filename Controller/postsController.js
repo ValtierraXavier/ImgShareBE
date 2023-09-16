@@ -27,7 +27,7 @@ export const postPost = async (req, res)=>{
         if(body.poster && body.url){
             const newPost =  new Posts(body)
             await newPost.save()
-            await res.sttus(200).send(newPost)
+            await res.status(200).send(newPost)
         }else if(!body.poster){
             await res.status(401).body("Please Login")
         }else if (body.URL = ""){

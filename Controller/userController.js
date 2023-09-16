@@ -134,15 +134,16 @@ export const userSignIn = async (req,res) =>{
 }
 
 export const linkPostToUser = async (req, res) => {
+  const id = req.params.id
+  const postId = req.body.newPostId
+  console.log(req.params)
   try{
-    const id = req.params.id
-    const postId = req.body.newPostId
-    
     const user = await Users.findById(id)
     user.posts.push(postId)
     user.save()
     res.send(user)
-  }catch(error){console.log(error.message)
+  }catch(error){
+    console.log(error.message)
   }
 }
 
