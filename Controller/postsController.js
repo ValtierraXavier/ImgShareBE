@@ -70,13 +70,15 @@ export const linkComment= async (req,res)=>{
 export const unlinkCommentFromPost = async(req, res)=>{
     const id = req.params.id
     const body = req.body.commentId
-    const post = await Posts.findById(id)
-    const postidIndex = post.postComments.indexOf(body)
-    if(postidIndex > -1){
-        post.postComments.splice(postidIndex, 1)
-        post.save()
-        await res.status(200)
-    }
+    try{        
+        const post = await Posts.findById(id)
+        const postidIndex = post.postComments.indexOf(body)
+        if(postidIndex > -1){
+            post.postComments.splice(postidIndex, 1)
+            post.save()
+            await res.status(200).send('unlinked from post')
+        }
+    }catch(error){console.log(error)}
 }
 
 export const postWithComments = async(req,res)=>{

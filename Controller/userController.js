@@ -45,9 +45,9 @@ export const updateUser = async(req, res)=>{
 }
 
 export const insertComment = async (req,res)=>{
+  const id = req.params.id
+  const body = req.body.newCommentId
   try{
-    const id = req.params.id
-    const body = req.body.newCommentId
     const whichUser = await Users.findById(id)
     whichUser.comments.push(body)
     whichUser.save()
@@ -59,13 +59,15 @@ export const insertComment = async (req,res)=>{
 export const unlinkCommentFromUser = async (req, res)=>{
   const id = req.params.id
   const body = req.body.commentId
-  const user = await Users.findById(id)
-  const useridIndex = user.comments.indexOf(body)
-  if(useridIndex > -1){
-    user.comments.splice(useridIndex, 1)
-    user.save()
-    await res.send({body: body ,user: user})
-  }
+  try{    
+    const user = await Users.findById(id)
+    const useridIndex = user.comments.indexOf(body)
+    if(useridIndex > -1){
+      user.comments.splice(useridIndex, 1)
+      user.save()
+      res.status(200).send('Unlinked Comment')
+    }
+  }catch(error){console.log(error.message)}
 }
 
 export const deleteUser = async (req, res)=>{

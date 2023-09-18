@@ -30,9 +30,9 @@ export const postComment = async (req, res)=>{
 }
 
 export const updateComment = async(req, res)=>{
+    const id = req.params.id
+    const body = req.body.edited
     try{
-        const id = req.params.id
-        const body = req.body.edited
         const commentEdit = await Comments.findByIdAndUpdate(id, body)
         await commentEdit.save()
         const newComment = await Comments.findById(id)
@@ -41,8 +41,8 @@ export const updateComment = async(req, res)=>{
 }
 
 export const deleteComment = async (req, res)=>{
+    const id = req.params.id
     try{
-        const {id} = req.params
         const deleteing = Comments.findById(id)
         await Comments.findByIdAndDelete(id)
         await res.send(`Deleted:\b\b ${deleteing}`)
