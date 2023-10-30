@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import CommentSchema from './commentsModel.js'
-export let userSchema = new mongoose.Schema(
+
+export const userSchema = new mongoose.Schema(
     {
         email: {
             type: String,
@@ -38,7 +38,11 @@ export let userSchema = new mongoose.Schema(
         following: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
-    }],
+        }],
+        followers: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }],
         encPassword: {
             type: String,
             required: true,

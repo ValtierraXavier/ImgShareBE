@@ -15,5 +15,7 @@ router.get('/userposts/:id', controller.getUserPosts)
 router.put('/unlinkcomment/:id', controller.unlinkCommentFromUser)
 router.put('/commentlike/:id',controller.handleCommentLike)
 router.put('/postlike/:id',controller.handlePostLike)
+router.put('/follow/:id', controller.follow)
+router.put('/unfollow/:id', controller.unfollow)
 
 export default router

@@ -16,7 +16,7 @@ const exp = new Date(today)
 exp.setDate(today.getDate() + 30)
 
 export const getUsers = async (req, res)=>{
-    try{
+  try{
         const users = await Users.find({})
         await res.json(users)
     }catch(error){console.log(error)}
@@ -193,5 +193,41 @@ export const handleCommentLike = async(req, res)=>{
     }catch(error){error.message}
 }
 
+export const follow = async (req, res)=>{
+  const id = req.params.id
+  const body = req.body.follower
+  try{
+    const userToFollow = await Users.findById(id)
+    const followerIndex = userToFollow.followers.indexOf(body)
+    const userFollowing = await Users.findById(body)
+    const userToFollowIndex = userFollowing.following.indexOf(id)
+    if(followerIndex < 0){
+      userToFollow.followers.push(body)
+      await userToFollow.save()
+    }
+    if(userToFollowIndex < 0){
+      userFollowing.following.push(id)
+      await userFollowing.save()
+    }   
+  }catch(error){console.log(error.message)}
+}
 
-
+export const unfollow = async (req, res)=>{
+  const id =req.params.id
+  const body = req.body.unfollower
+  console.log(id, '||', body)
+  try{
+    const userToUnfollow = await Users.findById(id)
+    const unFollowerIndex = userToUnfollow.followers.indexOf(body)
+    const userUnfollowing = await Users.findById(body)
+    const userToUnfollowIndex = userUnfollowing.following.indexOf(id)
+    if(unFollowerIndex >= 0){
+      userToUnfollow.followers.splice(unFollowerIndex, 1)
+      userToUnfollow.save()
+    }
+    if(userToUnfollowIndex >= 0){
+      userUnfollowing.following.splice(userToUnfollowIndex, 1)
+      userUnfollowing.save()
+    }
+  }catch(error){console.log(error.message)}
+}
